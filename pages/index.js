@@ -68,17 +68,17 @@ export default function Home() {
 
 function createBirthDom(){
 
-  const now = getNowDateWithString()
+  const now = getNowDateWithString(new Date());
+  const birth = getNowDateWithString(new Date(1992,1,4));
   return <>
   <p>現在時刻：{now}</p>
-  <p>生年月日：{now}</p>
+  <p>生年月日：{birth}</p>
   <p>年齢：17才Xヵ月</p>
   </>
 }
 
 
-function getNowDateWithString(){
-var dt = new Date();
+function getNowDateWithString(dt){
 var y = dt.getFullYear();
 var m = ("00" + (dt.getMonth()+1)).slice(-2);
 var d = ("00" + dt.getDate()).slice(-2);
