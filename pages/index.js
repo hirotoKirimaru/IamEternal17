@@ -4,6 +4,12 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [birth, setBirth] = useState(new Date(2000,0,1));
+  const [baseYear, setBaseYear] = useState(17);
+
+  const inputBaseYear = (e) => {
+    setBaseYear(e.target.value);
+  }
+
   const inputBirth = (e) => {
     setBirth(new Date(e.target.value));
   }
@@ -19,15 +25,18 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          私は永遠の17歳
+          私は永遠の{baseYear}歳
         </h1>
 
         <p className={styles.description}>
-        <label>生年月日：<input type="date" name="date" 
+        <p>基準年齢：<input type="value" value={baseYear}
+        onChange={inputBaseYear}/>
+        </p>
+        <p>生年月日：<input type="date" name="date" 
         value={getInputString(birth)}
-        onChange={inputBirth}/></label>
+        onChange={inputBirth}/></p>
         {/* <p>生年月日：<input type="date"></input></p> */}
-          {createBirthDom(birth)}
+          {createBirthDom(baseYear, birth)}
 
           {/* Get started by editing{' '} */}
           {/* <code className={styles.code}>pages/index.js</code> */}
@@ -78,13 +87,13 @@ export default function Home() {
   )
 }
 
-function createBirthDom(birth){
+function createBirthDom(baseYear, birth){
   const now = new Date();
   // const birth = new Date(1992,1,4);
 
   return <>
   <p>現在時刻：{getNowDateWithString(now)}</p>
-  <p>年齢：{birthDayCompute(now, birth)}</p>
+  <p>年齢：{birthDayCompute(baseYear, now, birth)}</p>
   </>
 }
 
@@ -105,7 +114,7 @@ function getInputString(dt){
   return result;
 }
 
-function birthDayCompute(now ,birth){
+function birthDayCompute(baseYear, now ,birth){
 
   let year = now.getYear() - birth.getYear();
   let month = now.getMonth() - birth.getMonth();
@@ -115,8 +124,8 @@ function birthDayCompute(now ,birth){
     month--;
   }
 
-  month += ((year - 17) * 12);
-  year = 17;
+  month += ((year - baseYear) * 12);
+  year = baseYear;
 
   return year+"歳"+month+"ヵ月";
 }
