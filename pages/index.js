@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import React, { useState } from 'react';
 
 export default function Home() {
+  const [birth, setBirth] = useState(new Date(2000,0,1));
+  const inputBirth = (e) => {
+    setBirth(new Date(e.target.value));
+  }
+  
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +23,11 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          {createBirthDom()}
+        <label>生年月日：<input type="date" name="date" 
+        value={getInputString(birth)}
+        onChange={inputBirth}/></label>
+        {/* <p>生年月日：<input type="date"></input></p> */}
+          {createBirthDom(birth)}
 
           {/* Get started by editing{' '} */}
           {/* <code className={styles.code}>pages/index.js</code> */}
@@ -66,13 +78,12 @@ export default function Home() {
   )
 }
 
-function createBirthDom(){
+function createBirthDom(birth){
   const now = new Date();
-  const birth = new Date(1992,1,4);
+  // const birth = new Date(1992,1,4);
 
   return <>
   <p>現在時刻：{getNowDateWithString(now)}</p>
-  <p>生年月日：{getNowDateWithString(birth)}</p>
   <p>年齢：{birthDayCompute(now, birth)}</p>
   </>
 }
@@ -84,6 +95,14 @@ var m = ("00" + (dt.getMonth()+1)).slice(-2);
 var d = ("00" + dt.getDate()).slice(-2);
 var result = y + "/" + m + "/" + d;
 return result;
+}
+
+function getInputString(dt){
+  var y = dt.getFullYear();
+  var m = ("00" + (dt.getMonth()+1)).slice(-2);
+  var d = ("00" + dt.getDate()).slice(-2);
+  var result = y + "-" + m + "-" + d;
+  return result;
 }
 
 function birthDayCompute(now ,birth){
