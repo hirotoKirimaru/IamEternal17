@@ -68,8 +68,6 @@ export default function Home() {
 
 function createBirthDom(baseYear, birth){
   const now = new Date();
-  // const birth = new Date(1992,1,4);
-
   return <>
   <p>現在時刻：{getNowDateWithString(now)}</p>
   <p>年齢：{birthDayCompute(baseYear, now, birth)}</p>
@@ -81,16 +79,14 @@ function getNowDateWithString(dt){
 var y = dt.getFullYear();
 var m = ("00" + (dt.getMonth()+1)).slice(-2);
 var d = ("00" + dt.getDate()).slice(-2);
-var result = y + "/" + m + "/" + d;
-return result;
+return y + "/" + m + "/" + d;
 }
 
 function getInputString(dt){
   var y = dt.getFullYear();
   var m = ("00" + (dt.getMonth()+1)).slice(-2);
   var d = ("00" + dt.getDate()).slice(-2);
-  var result = y + "-" + m + "-" + d;
-  return result;
+  return y + "-" + m + "-" + d;
 }
 
 function birthDayCompute(baseYear, now ,birth){
